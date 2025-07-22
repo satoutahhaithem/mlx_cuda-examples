@@ -371,8 +371,16 @@ if __name__ == "__main__":
         "--temp", type=float, default=0.0, help="The sampling temperature"
     )
     parser.add_argument("--seed", type=int, default=0, help="The PRNG seed")
-
+    parser.add_argument(
+        "--gpu",
+        action="store_true",
+        help="Whether to run on the GPU.",
+    )
+ 
     args = parser.parse_args()
+ 
+    if not args.gpu:
+        mx.set_default_device(mx.cpu)
 
     mx.random.seed(args.seed)
 

@@ -63,3 +63,85 @@ Run `python llama.py --help` for more details.
 [^1]: For Llama v1 refer to the [arXiv paper](https://arxiv.org/abs/2302.13971) and [blog post](https://ai.meta.com/blog/large-language-model-llama-meta-ai/) for more details.
 [^2]: For Llama v2 refer to the [blob post](https://ai.meta.com/llama/)
 [^3]: For TinyLlama refer to the [gihub repository](https://github.com/jzhang38/TinyLlama?tab=readme-ov-file)
+
+
+### Running with a Custom MLX Build and Proxy
+
+If you are using a custom build of MLX and are behind a proxy, follow these steps:
+
+1.  **Create a virtual environment:**
+
+    ```bash
+    python3 -m venv .venv
+    ```
+
+2.  **Install the required packages using a proxy:**
+
+    Replace the proxy URL with your own.
+
+    ```bash
+    export https_proxy=http://user:password@host:port &amp;&amp; \
+    export http_proxy=http://user:password@host:port &amp;&amp; \
+    export HTTPS_PROXY=http://user:password@host:port &amp;&amp; \
+    export HTTP_PROXY=http://user:password@host:port &amp;&amp; \
+    .venv/bin/pip install -r requirements.txt
+    ```
+
+3.  **Install your custom MLX build:**
+
+    Replace `~/mlx` with the path to your custom MLX build.
+
+    ```bash
+    .venv/bin/pip install -e ~/mlx
+    ```
+
+4.  **Download the TinyLlama model:**
+
+    ```bash
+    git lfs install &amp;&amp; \
+    git clone https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0 tiny_llama_torch
+    ```
+
+5.  **Convert the model to MLX format:**
+
+    ```bash
+    .venv/bin/python convert.py --torch-path tiny_llama_torch --model-name tiny_llama
+    ```
+
+6.  **Run the Llama inference:**
+
+    ```bash
+    .venv/bin/python llama.py --model-path mlx_model --gpu
+    ```
+
+### Results
+
+The model generates text, but the output is not very coherent. This is expected from a small model like TinyLlama.
+
+```
+Press enter to start generation
+------
+In the beginning the Universe was created.
+
+
+Verse 2:
+The Universe was created with a great big bang.
+
+Chorus:
+The Universe is a vast and endless space.
+
+Verse 3:
+The Universe is full of wonders and mysteries.
+
+Chorus:
+The Universe is a vast and endless space.
+
+Bridge:
+The Universe is a vast and endless space.
+
+Chorus:
+The Universe
+------
+[INFO] Prompt processing: 12.523 s
+[INFO] Full generation: 361.172 s
+```
