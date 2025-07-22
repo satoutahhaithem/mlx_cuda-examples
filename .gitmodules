@@ -1,0 +1,3 @@
+[submodule "llms/llama/tiny_llama_torch"]
+	path = llms/llama/tiny_llama_torch
+	url = https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0
