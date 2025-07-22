@@ -2,6 +2,56 @@
 
 This repo contains a variety of standalone examples using the [MLX
 framework](https://github.com/ml-explore/mlx).
+### Running the MNIST Example with a Custom MLX Build
+
+If you have a custom build of MLX and are behind a proxy, you can run the MNIST example by following these steps:
+
+1.  **Create a virtual environment:**
+
+    ```bash
+    python3 -m venv .venv
+    ```
+
+2.  **Install the required packages using a proxy:**
+
+    Replace the proxy URL with your own.
+
+    ```bash
+    export https_proxy=http://user:password@host:port &amp;&amp; \
+    export http_proxy=http://user:password@host:port &amp;&amp; \
+    export HTTPS_PROXY=http://user:password@host:port &amp;&amp; \
+    export HTTP_PROXY=http://user:password@host:port &amp;&amp; \
+    .venv/bin/pip install -r mnist/requirements.txt
+    ```
+
+3.  **Install your custom MLX build:**
+
+    Replace `~/mlx` with the path to your custom MLX build.
+
+    ```bash
+    .venv/bin/pip install -e ~/mlx
+    ```
+
+4.  **Run the MNIST example:**
+
+    ```bash
+    .venv/bin/python mnist/main.py --gpu
+    ```
+5.  **Expected output:**
+
+    ```
+    Epoch 0: Test accuracy 0.863, Time 4.644 (s)
+    Epoch 1: Test accuracy 0.901, Time 0.595 (s)
+    Epoch 2: Test accuracy 0.919, Time 0.570 (s)
+    Epoch 3: Test accuracy 0.932, Time 0.584 (s)
+    Epoch 4: Test accuracy 0.937, Time 0.594 (s)
+    Epoch 5: Test accuracy 0.926, Time 0.553 (s)
+    Epoch 6: Test accuracy 0.947, Time 0.536 (s)
+    Epoch 7: Test accuracy 0.934, Time 0.538 (s)
+    Epoch 8: Test accuracy 0.950, Time 0.560 (s)
+    Epoch 9: Test accuracy 0.951, Time 0.518 (s)
+    ```
+
 
 The [MNIST](mnist) example is a good starting point to learn how to use MLX.
 Some more useful examples are listed below. Check-out [MLX
